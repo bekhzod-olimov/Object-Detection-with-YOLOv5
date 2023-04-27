@@ -1,0 +1,9 @@
+train: /home/ubuntu/workspace/dataset/crowd/object_detection/images/train/ 
+val:  /home/ubuntu/workspace/dataset/crowd/object_detection/images/val/
+test: /home/ubuntu/workspace/dataset/crowd/object_detection/images/test/
+
+# number of classes
+nc: 3
+
+# class names
+names: ["사람", "이륜차","자전거"]

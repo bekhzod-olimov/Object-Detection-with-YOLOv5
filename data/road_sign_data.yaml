@@ -1,0 +1,9 @@
+train: /home/ubuntu/workspace/dataset/road-sign-detection/object_detection/images/train/ 
+val:  /home/ubuntu/workspace/dataset/road-sign-detection/object_detection/images/val/ 
+test: /home/ubuntu/workspace/dataset/road-sign-detection/object_detection/images/test/ 
+
+# number of classes
+nc: 4
+
+# class names
+names: ["trafficlight","stop", "speedlimit","crosswalk"]
