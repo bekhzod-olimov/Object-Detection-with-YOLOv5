@@ -9,9 +9,20 @@ pip install -r requirements.txt
 ```
 
 ### Create datasets to train YOLOv5 object detection model
-##### Extract data from .xml or .json files
+##### 1) Extract data from .xml or .json files
 
 ```python
+
 python datasets/make_dataset_urban.py
 python datasets/make_dataset_road.py
+
+```
+
+##### 2) Check data to ensure that bounding boxes match with images well
+
+```python
+
+python datasets/check_data_urban.py
+python datasets/check_data_road.py
+
 ```
