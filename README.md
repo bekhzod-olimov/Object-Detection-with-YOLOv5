@@ -7,3 +7,11 @@ conda create -n <ENV_NAME> python = 3.9
 conda activate <ENV_NAME>
 pip install -r requirements.txt
 ```
+
+### Create datasets to train YOLOv5 object detection model
+##### Extract data from .xml or .json files
+
+```python
+python datasets/make_dataset_urban.py
+python datasets/make_dataset_road.py
+```
