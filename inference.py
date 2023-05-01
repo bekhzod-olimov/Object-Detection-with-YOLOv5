@@ -19,15 +19,9 @@ Usage - formats:
                               yolov5s_paddle_model       # PaddlePaddle
 """
 
-import argparse
-import json
-import os
-import subprocess
-import sys
+# Import libraries
+import torch, argparse, json, os, subprocess, sys, numpy as np
 from pathlib import Path
-
-import numpy as np
-import torch
 from tqdm import tqdm
 
 FILE = Path(__file__).resolve()
@@ -71,10 +65,13 @@ def save_one_json(predn, jdict, path, class_map):
 
 
 def process_batch(detections, labels, iouv):
+    
     """
-    Return correct prediction matrix
-    Arguments:
-        detections (array[N, 6]), x1, y1, x2, y2, conf, class
+    This function gets several parameters and returns correct prediction matrix
+    
+    Parameters:
+        
+        detections   - output from the YOLOv5 model, array;
         labels (array[M, 5]), class, x1, y1, x2, y2
     Returns:
         correct (array[N, 10]), for 10 IoU levels
