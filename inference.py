@@ -67,18 +67,25 @@ def save_one_json(predn, jdict, path, class_map):
 def process_batch(detections, labels, iouv):
     
     """
+    
     This function gets several parameters and returns correct prediction matrix
     
     Parameters:
         
-        detections   - output from the YOLOv5 model, array;
-        labels (array[M, 5]), class, x1, y1, x2, y2
-    Returns:
-        correct (array[N, 10]), for 10 IoU levels
+        detections   - output from the YOLOv5 model, tensor;
+        labels       - ground truth data, tensor;
+        iouv         - iou levels, int.
+    
+    Output:
+    
+        correct      - correct predictions for 10 iou levels, tensor.
+        
     """
+    
     correct = np.zeros((detections.shape[0], iouv.shape[0])).astype(bool)
     iou = box_iou(labels[:, 1:], detections[:, :4])
     correct_class = labels[:, 0:1] == detections[:, 5]
+    
     for i in range(len(iouv)):
         x = torch.where((iou >= iouv[i]) & correct_class)  # IoU > threshold and classes match
         if x[0].shape[0]:
