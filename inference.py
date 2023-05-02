@@ -385,13 +385,22 @@ def parse_opt():
     return opt
 
 def main(opt):
+    
+    """
+    
+    This function gets arguments and runs the script.
+    
+    Parameter:
+    
+        opt    - parsed arguments, argparse object. 
+    
+    """
+    
     check_requirements(exclude=('tensorboard', 'thop'))
-
     if opt.task in ('train', 'val', 'test'):  # run normally
         if opt.conf_thres > 0.001:  # https://github.com/ultralytics/yolov5/issues/1466
             LOGGER.info(f'WARNING ⚠️ confidence threshold {opt.conf_thres} > 0.001 produces invalid results')
-        if opt.save_hybrid:
-            LOGGER.info('WARNING ⚠️ --save-hybrid will return high mAP from hybrid labels, not from predictions alone')
+        if opt.save_hybrid: LOGGER.info('WARNING ⚠️ --save-hybrid will return high mAP from hybrid labels, not from predictions alone')
         run(**vars(opt))
 
     else:
@@ -400,8 +409,7 @@ def main(opt):
         if opt.task == 'speed':  # speed benchmarks
             # python val.py --task speed --data coco.yaml --batch 1 --weights yolov5n.pt yolov5s.pt...
             opt.conf_thres, opt.iou_thres, opt.save_json = 0.25, 0.45, False
-            for opt.weights in weights:
-                run(**vars(opt), plots=False)
+            for opt.weights in weights: run(**vars(opt), plots=False)
 
         elif opt.task == 'study':  # speed vs mAP benchmarks
             # python val.py --task study --data coco.yaml --iou 0.7 --weights yolov5n.pt yolov5s.pt...
@@ -417,7 +425,10 @@ def main(opt):
             plot_val_study(x=x)  # plot
         else: raise NotImplementedError(f'--task {opt.task} not in ("train", "val", "test", "speed", "study")')
 
-
 if __name__ == '__main__':
+    
+    # Get parsed parameters
     opt = parse_opt()
+    
+    # Run the script
     main(opt)
