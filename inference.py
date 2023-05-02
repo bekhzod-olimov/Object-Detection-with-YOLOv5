@@ -343,8 +343,10 @@ def run(
 
 def parse_opt():
     
+    # Initialize parser
     parser = argparse.ArgumentParser()
     
+    # Add arguments to the parser
     parser.add_argument('--data', type=str, default=ROOT / 'data/coco128.yaml', help='dataset.yaml path')
     parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'yolov5s.pt', help='model path(s)')
     parser.add_argument('--batch-size', type=int, default=32, help='batch size')
@@ -367,13 +369,20 @@ def parse_opt():
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
     parser.add_argument('--dnn', action='store_true', help='use OpenCV DNN for ONNX inference')
+    
+    # Parse the arguments
     opt = parser.parse_args()
+    
+    # Get info
     opt.data = check_yaml(opt.data)  # check YAML
     opt.save_json |= opt.data.endswith('coco.yaml')
     opt.save_txt |= opt.save_hybrid
+    
+    # Print arguments
     print_args(vars(opt))
+    
+    # Return arguments
     return opt
-
 
 def main(opt):
     check_requirements(exclude=('tensorboard', 'thop'))
@@ -406,8 +415,7 @@ def main(opt):
                 np.savetxt(f, y, fmt='%10.4g')  # save
             subprocess.run(['zip', '-r', 'study.zip', 'study_*.txt'])
             plot_val_study(x=x)  # plot
-        else:
-            raise NotImplementedError(f'--task {opt.task} not in ("train", "val", "test", "speed", "study")')
+        else: raise NotImplementedError(f'--task {opt.task} not in ("train", "val", "test", "speed", "study")')
 
 
 if __name__ == '__main__':
