@@ -15,29 +15,18 @@ Datasets:   https://github.com/ultralytics/yolov5/tree/master/data
 Tutorial:   https://docs.ultralytics.com/yolov5/tutorials/train_custom_data
 """
 
-import argparse
-import math
-import os
-import random
-import subprocess
-import sys
-import time
+# Import libraries
+import argparse, yaml, math, os, random, subprocess, sys, time, torch, numpy as np, torch.nn as nn, torch.distributed as dist
+
 from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
-
-import numpy as np
-import torch
-import torch.distributed as dist
-import torch.nn as nn
-import yaml
 from torch.optim import lr_scheduler
 from tqdm import tqdm
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
-if str(ROOT) not in sys.path:
-    sys.path.append(str(ROOT))  # add ROOT to PATH
+if str(ROOT) not in sys.path: sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 import inference as validate  # for end-of-epoch mAP
